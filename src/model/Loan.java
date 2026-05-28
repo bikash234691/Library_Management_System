@@ -1,8 +1,10 @@
+
 package model;
 
 import java.time.LocalDate;
 
 public class Loan {
+
     private String loanId;
     private Book book;
     private Member member;
@@ -10,7 +12,12 @@ public class Loan {
     private LocalDate dueDate;
     private boolean returned;
 
-    public Loan(String loanId, Book book, Member member, LocalDate borrowDate, LocalDate dueDate) {
+    public Loan(String loanId,
+                Book book,
+                Member member,
+                LocalDate borrowDate,
+                LocalDate dueDate) {
+
         this.loanId = loanId;
         this.book = book;
         this.member = member;
@@ -19,19 +26,68 @@ public class Loan {
         this.returned = false;
     }
 
-    // Getters
-    public String getLoanId() { return loanId; }
-    public Book getBook() { return book; }
-    public Member getMember() { return member; }
-    public LocalDate getBorrowDate() { return borrowDate; }
-    public LocalDate getDueDate() { return dueDate; }
-    public boolean isReturned() { return returned; }
+    // ===================================================
+    // GETTERS
+    // ===================================================
 
-    public void setReturned(boolean returned) { this.returned = returned; }
+    public String getLoanId() {
+        return loanId;
+    }
+
+    public Book getBook() {
+        return book;
+    }
+
+    public Member getMember() {
+        return member;
+    }
+
+    public LocalDate getBorrowDate() {
+        return borrowDate;
+    }
+
+    public LocalDate getDueDate() {
+        return dueDate;
+    }
+
+    public boolean isReturned() {
+        return returned;
+    }
+
+    // ===================================================
+    // SETTERS
+    // ===================================================
+
+    public void setReturned(boolean returned) {
+        this.returned = returned;
+    }
+
+    // ===================================================
+    // DISPLAY LOAN DETAILS
+    // ===================================================
 
     public void displayLoanDetails() {
-        System.out.println("Loan ID: " + loanId + " | Book: " + book.getTitle() +
-                " | Member: " + member.getName() + " | Due: " + dueDate +
-                " | Status: " + (returned ? "Returned" : (LocalDate.now().isAfter(dueDate) ? "OVERDUE" : "Active")));
+
+        String status;
+
+        if (returned) {
+            status = "Returned";
+        }
+        else if (LocalDate.now().isAfter(dueDate)) {
+            status = "OVERDUE";
+        }
+        else {
+            status = "Active";
+        }
+
+        System.out.println(
+                "Loan ID: " + loanId +
+                " | Member ID: " + member.getMemberId() +
+                " | Member: " + member.getName() +
+                " | Book: " + book.getTitle() +
+                " | Borrow Date: " + borrowDate +
+                " | Due Date: " + dueDate +
+                " | Status: " + status
+        );
     }
 }
